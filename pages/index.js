@@ -1,5 +1,5 @@
-import ModernHome from "@/components/ModernHome";
+import Home from "@/components/home";
 
 export default function IndexPage() {
-  return <ModernHome />;
+  return <Home />;
 }

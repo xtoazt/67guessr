@@ -59,6 +59,8 @@ import Stats from "stats.js";
 import SvEmbedIframe from "./streetview/svHandler";
 import HomeNotice from "./homeNotice";
 import getTimeString, { getMaintenanceDate } from "./maintenanceTime";
+import ChatWidget from "./ChatWidget";
+import GameTest from "./GameTest";
 
 
 const initialMultiplayerState = {
@@ -2048,6 +2050,12 @@ export default function Home({ }) {
             <MapGuessrModal isOpen={mapGuessrModal} onClose={() => setMapGuessrModal(false)} />
             {ChatboxMemo}
             <ToastContainer pauseOnFocusLoss={false} />
+            
+            {/* Chat Widget */}
+            <ChatWidget />
+            
+            {/* Game Test - Remove this after debugging */}
+            <GameTest />
 
             <div className="videoAdParent hidden">
                 <div className="videoAdPlayer">
