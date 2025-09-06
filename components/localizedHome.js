@@ -1,4 +1,4 @@
-import Home from "@/components/home";
+import ThundrHome from "@/components/ThundrHome";
 import { useEffect } from "react";
 
 export default function LocalizedHome({ path }) {
@@ -51,7 +51,7 @@ export default function LocalizedHome({ path }) {
 
   }, []);
   return (
-    <Home />
+    <ThundrHome />
   )
 }
 

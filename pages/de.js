@@ -1,5 +1,5 @@
-import LocalizedHome from "@/components/localizedHome";
+import ThundrHome from "@/components/ThundrHome";
 
 export default function IndexPage() {
-  return <LocalizedHome path="de" />;
+  return <ThundrHome />;
 }

@@ -414,6 +414,7 @@ export default function Home({ }) {
         const urlParams = new URLSearchParams(window.location.search);
         const coolmathParam = urlParams.get('coolmath');
         
+        // Force disable CoolMath mode unless explicitly requested
         if (process.env.NEXT_PUBLIC_COOLMATH === "true" && coolmathParam === "true") {
             setInCoolMathGames(true);
             window.lastCoolmathAd = Date.now();
@@ -440,6 +441,10 @@ export default function Home({ }) {
             return () => {
                 clearInterval(interval);
             }
+        } else {
+            // Explicitly disable CoolMath mode
+            setInCoolMathGames(false);
+            setCoolmathSplash(null);
         }
     }, [])
 
