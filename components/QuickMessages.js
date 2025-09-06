@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaPaperPlane, FaTimes, FaMessage } from 'react-icons/fa';
+import { FaPaperPlane, FaTimes, FaComment } from 'react-icons/fa';
 
 const PREMADE_MESSAGES = [
   "Smoked",
@@ -65,7 +65,7 @@ export default function QuickMessages({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <FaMessage className="btn-icon" />
+        <FaComment className="btn-icon" />
         <span className="btn-text">Quick</span>
       </motion.button>
 
