@@ -60,7 +60,6 @@ import SvEmbedIframe from "./streetview/svHandler";
 import HomeNotice from "./homeNotice";
 import getTimeString, { getMaintenanceDate } from "./maintenanceTime";
 import ChatWidget from "./ChatWidget";
-import GameTest from "./GameTest";
 
 
 const initialMultiplayerState = {
@@ -2053,9 +2052,6 @@ export default function Home({ }) {
             
             {/* Chat Widget */}
             <ChatWidget />
-            
-            {/* Game Test - Remove this after debugging */}
-            <GameTest />
 
             <div className="videoAdParent hidden">
                 <div className="videoAdPlayer">

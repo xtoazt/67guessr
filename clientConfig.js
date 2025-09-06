@@ -4,9 +4,9 @@ export default function config() {
   const prefixHttp = (isHttps ? "https" : "http") + "://";
   const prefixWs = (isHttps ? "wss" : "ws") + "://";
 
-  // For Vercel deployment, use environment variables or fallback to localhost
-  let apiUrl = process.env.NEXT_PUBLIC_API_URL || "localhost:3001";
-  let wsHost = process.env.NEXT_PUBLIC_WS_HOST || process.env.NEXT_PUBLIC_API_URL || "localhost:3002";
+  // For Vercel deployment, use environment variables or fallback to WorldGuessr servers
+  let apiUrl = process.env.NEXT_PUBLIC_API_URL || "api.worldguessr.com";
+  let wsHost = process.env.NEXT_PUBLIC_WS_HOST || process.env.NEXT_PUBLIC_API_URL || "server.worldguessr.com";
 
   // Clean up URLs - remove protocol if already included
   if (apiUrl.startsWith('http://') || apiUrl.startsWith('https://')) {
