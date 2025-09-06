@@ -59,7 +59,7 @@ window.nitroAds=window.nitroAds||{createAd:function(){return new Promise(e=>{win
     return () => {
       document.body.removeChild(script);
     }
-    } else if(process.env.NEXT_PUBLIC_COOLMATH === "true") {
+    } else if(process.env.NEXT_PUBLIC_COOLMATH === "true" && window.location.search.includes("coolmath=true")) {
       /*<script
 src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script type="text/ja

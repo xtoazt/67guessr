@@ -410,7 +410,11 @@ export default function Home({ }) {
 
     // check if ?coolmath=true
     useEffect(() => {
-        if (process.env.NEXT_PUBLIC_COOLMATH === "true") {
+        // Only show CoolMath splash if explicitly requested via URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const coolmathParam = urlParams.get('coolmath');
+        
+        if (process.env.NEXT_PUBLIC_COOLMATH === "true" && coolmathParam === "true") {
             setInCoolMathGames(true);
             window.lastCoolmathAd = Date.now();
 
@@ -1695,7 +1699,7 @@ export default function Home({ }) {
                 console.log("error requesting midgame ad", e)
                 adFinished()
             }
-        } else if (process.env.NEXT_PUBLIC_COOLMATH === "true" && Date.now() - window.lastCoolmathAd > 120000) {
+        } else if (process.env.NEXT_PUBLIC_COOLMATH === "true" && inCoolMathGames && Date.now() - window.lastCoolmathAd > 120000) {
             try {
                 window.lastCoolmathAd = Date.now();
                 function onEnd() {
