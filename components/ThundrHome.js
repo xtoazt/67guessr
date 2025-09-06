@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSession, signOut } from './auth/auth';
 import LoginModal from './auth/LoginModal';
-import ChatWidget from './ChatWidget';
+import QuickMessages from './QuickMessages';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaPlay, FaUsers, FaTrophy, FaGlobe, FaRocket, FaStar, FaGamepad, FaChartLine, FaBolt, FaCompass } from 'react-icons/fa';
 
@@ -403,8 +403,14 @@ export default function ThundrHome() {
         </motion.section>
       </motion.main>
 
-      {/* Chat Widget */}
-      <ChatWidget />
+      {/* Quick Messages */}
+      <QuickMessages 
+        isVisible={true}
+        onSendMessage={(message) => {
+          console.log('Quick message sent:', message);
+          // TODO: Integrate with WebSocket for real-time messaging
+        }}
+      />
 
       {/* Login Modal */}
       <AnimatePresence>

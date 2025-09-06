@@ -59,7 +59,7 @@ import Stats from "stats.js";
 import SvEmbedIframe from "./streetview/svHandler";
 import HomeNotice from "./homeNotice";
 import getTimeString, { getMaintenanceDate } from "./maintenanceTime";
-import ChatWidget from "./ChatWidget";
+import QuickMessages from "./QuickMessages";
 
 
 const initialMultiplayerState = {
@@ -2050,8 +2050,20 @@ export default function Home({ }) {
             {ChatboxMemo}
             <ToastContainer pauseOnFocusLoss={false} />
             
-            {/* Chat Widget */}
-            <ChatWidget />
+            {/* Quick Messages */}
+            <QuickMessages 
+                isVisible={screen === "game" || screen === "multiplayer"}
+                onSendMessage={(message) => {
+                    // Send message via WebSocket if connected
+                    if (ws && ws.readyState === WebSocket.OPEN) {
+                        ws.send(JSON.stringify({
+                            type: 'chat',
+                            message: message,
+                            username: session?.token?.username || 'Guest'
+                        }));
+                    }
+                }}
+            />
 
             <div className="videoAdParent hidden">
                 <div className="videoAdPlayer">
