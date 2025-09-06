@@ -335,7 +335,8 @@ body {
 }
 
 .btn-primary,
-.btn-secondary {
+.btn-secondary,
+.btn-tertiary {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -363,8 +364,15 @@ body {
   box-shadow: var(--shadow-glow-orange);
 }
 
+.btn-tertiary {
+  background: var(--gradient-accent);
+  color: var(--bg-primary);
+  box-shadow: var(--shadow-glow-gold);
+}
+
 .btn-primary:hover,
-.btn-secondary:hover {
+.btn-secondary:hover,
+.btn-tertiary:hover {
   transform: translateY(-3px);
 }
 

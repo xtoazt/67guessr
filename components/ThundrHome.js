@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSession, signOut } from './auth/auth';
 import LoginModal from './auth/LoginModal';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaPlay, FaRocket, FaBolt } from 'react-icons/fa';
+import { FaPlay, FaRocket, FaBolt, FaUsers } from 'react-icons/fa';
 
 export default function ThundrHome() {
   const { data: session } = useSession();
@@ -167,7 +167,7 @@ export default function ThundrHome() {
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               Drop into random street views and test your geography skills.<br />
-              Click on the map to make your guess.
+              Play solo or challenge others in real-time multiplayer.
             </motion.p>
             
             <motion.div 
@@ -183,18 +183,28 @@ export default function ThundrHome() {
                 whileTap={{ scale: 0.95 }}
               >
                 <FaPlay className="btn-icon" />
-                Start Game
+                Solo Game
+              </motion.button>
+              
+              <motion.button 
+                className="btn-secondary"
+                onClick={() => window.location.href = '/en?mode=multiplayer'}
+                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.4)" }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FaUsers className="btn-icon" />
+                Multiplayer
               </motion.button>
               
               {!session?.token?.secret && (
                 <motion.button 
-                  className="btn-secondary"
+                  className="btn-tertiary"
                   onClick={() => setLoginModalOpen(true)}
-                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.4)" }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255, 215, 0, 0.4)" }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <FaRocket className="btn-icon" />
-                  Sign In
+                  Sign In for Friends & Stats
                 </motion.button>
               )}
             </motion.div>
