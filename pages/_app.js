@@ -1,4 +1,5 @@
 import "@/styles/minimal.scss";
+import "@/styles/modern.scss";
 
 import { useEffect } from "react";
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSession, signOut } from './auth/auth';
 import LoginModal from './auth/LoginModal';
+import ChatWidget from './ChatWidget';
 import { FaPlay, FaUsers, FaTrophy, FaGlobe, FaRocket, FaStar, FaGamepad, FaChartLine } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -370,6 +371,9 @@ export default function ModernHome() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Chat Widget */}
+      <ChatWidget />
     </div>
   );
 }
