@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@9.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,6 +13,7 @@
     "start-api": "cross-env NODE_ENV=production node server.js",
     "start-ws": "cross-env UWS_HTTP_MAX_HEADERS_SIZE=16384 NODE_ENV=production node ws/ws",
     "start-cron": "cross-env NODE_ENV=production node cron.js",
+    "start-combined": "cross-env NODE_ENV=production UWS_HTTP_MAX_HEADERS_SIZE=16384 node combined-server.js",
     "do:api": "cross-env NODE_ENV=production PORT=$PORT node server.js",
     "do:ws": "cross-env NODE_ENV=production PORT=$PORT UWS_HTTP_MAX_HEADERS_SIZE=16384 node ws/ws",
     "do:cron": "cross-env NODE_ENV=production node cron.js"
