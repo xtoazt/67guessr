@@ -1,0 +1,9 @@
+# Railway deployment configuration
+# API Server
+api: npm run start-api
+
+# WebSocket Server  
+ws: npm run start-ws
+
+# Cron Jobs
+cron: npm run start-cron

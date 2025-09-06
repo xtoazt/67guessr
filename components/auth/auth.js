@@ -1,0 +1,217 @@
+import { toast } from "react-toastify";
+import retryManager from "../utils/retryFetch";
+
+// secret: userDb.secret, username: userDb.username, email: userDb.email, staff: userDb.staff, canMakeClues: userDb.canMakeClues, supporter: userDb.supporter
+let session = false;
+// null = not logged in
+// false = session loading/fetching
+
+export function signOut() {
+  window.localStorage.removeItem("wg_secret");
+  window.localStorage.removeItem("wg_token");
+  session = null;
+  if(window.dontReconnect) {
+    return;
+  }
+
+  // remove all cookies
+  console.log("Removing cookies");
+  (function () {
+    var cookies = document.cookie.split("; ");
+    for (var c = 0; c < cookies.length; c++) {
+        var d = window.location.hostname.split(".");
+        while (d.length > 0) {
+            var cookieBase = encodeURIComponent(cookies[c].split(";")[0].split("=")[0]) + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; domain=' + d.join('.') + ' ;path=';
+            var p = location.pathname.split('/');
+            document.cookie = cookieBase + '/';
+            while (p.length > 0) {
+                document.cookie = cookieBase + p.join('/');
+                console.log(cookieBase + p.join('/'));
+                p.pop();
+            };
+            d.shift();
+        }
+    }
+})();
+
+  window.location.reload();
+}
+
+export async function signIn(username, password) {
+  console.log("Signing in with username/password");
+
+  if (!username || !password) {
+    toast.error("Username and password are required");
+    return false;
+  }
+
+  try {
+    const response = await fetch(window.cConfig?.apiUrl + "/api/auth", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ 
+        action: "login", 
+        username, 
+        password 
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      window.localStorage.setItem("wg_secret", data.user.secret);
+      window.localStorage.setItem("wg_token", data.token);
+      session = { token: data.user };
+      toast.success("Login successful!");
+      return true;
+    } else {
+      toast.error(data.error || "Login failed");
+      return false;
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    toast.error("Login failed. Please try again.");
+    return false;
+  }
+}
+
+export async function register(username, password, email = "") {
+  console.log("Registering new user");
+
+  if (!username || !password) {
+    toast.error("Username and password are required");
+    return false;
+  }
+
+  try {
+    const response = await fetch(window.cConfig?.apiUrl + "/api/auth", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ 
+        action: "register", 
+        username, 
+        password,
+        email 
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      window.localStorage.setItem("wg_secret", data.user.secret);
+      window.localStorage.setItem("wg_token", data.token);
+      session = { token: data.user };
+      toast.success("Registration successful!");
+      return true;
+    } else {
+      toast.error(data.error || "Registration failed");
+      return false;
+    }
+  } catch (error) {
+    console.error("Registration error:", error);
+    toast.error("Registration failed. Please try again.");
+    return false;
+  }
+}
+
+export function useSession() {
+  if(typeof window === "undefined") {
+    return {
+      data: false
+    }
+  }
+
+  if(session === false && !window.fetchingSession && window.cConfig?.apiUrl) {
+    let secret = null;
+    try {
+      secret = window.localStorage.getItem("wg_secret");
+    } catch (e) {
+      console.error(e);
+    }
+    
+    if(secret) {
+      window.fetchingSession = true;
+
+      console.log(`[Auth] Starting authentication with retry mechanism`);
+      
+      retryManager.fetchWithRetry(
+        window.cConfig?.apiUrl + "/api/auth",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ action: "verify", secret }),
+        },
+        'auth'
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          window.fetchingSession = false;
+          console.log(`[Auth] Authentication successful`);
+          
+          if (data.error) {
+            console.error(`[Auth] Server error:`, data.error);
+            session = null;
+            return;
+          }
+
+          if (data.secret) {
+            session = {token: data};
+            console.log(`[Auth] Session established for user:`, data.username);
+          } else {
+            console.log(`[Auth] No session data received, user not logged in`);
+            session = null;
+          }
+        })
+        .catch((e) => {
+          window.fetchingSession = false;
+          console.error(`[Auth] Authentication failed after all retries:`, e.message);
+          
+          // Clear potentially corrupted session data
+          try {
+            window.localStorage.removeItem("wg_secret");
+            window.localStorage.removeItem("wg_token");
+          } catch (err) {
+            console.warn(`[Auth] Could not clear localStorage:`, err);
+          }
+          
+          session = null;
+          
+          // Show user-friendly error after all retries exhausted
+          if (retryManager.getRetryCount('auth') >= 5) {
+            toast.error('Connection issues detected. Please refresh the page if problems persist.');
+          }
+        });
+    } else {
+      session = null;
+    }
+  }
+
+  return {
+    data: session
+  }
+}
+
+export function getHeaders() {
+  let secret = null;
+  if(session && session?.token?.secret) {
+    secret = session.secret;
+  } else {
+    try {
+      secret = window.localStorage.getItem("wg_secret");
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  if(!secret) {
+    return {};
+  }
+  return {
+    Authorization: "Bearer "+secret
+  }
+}

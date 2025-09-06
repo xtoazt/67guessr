@@ -1,0 +1,75 @@
+name: 67guessr
+services:
+  # API Server
+  - name: api
+    source_dir: /
+    github:
+      repo: your-username/67guessr
+      branch: main
+    run_command: npm run start-api
+    environment_slug: node-js
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    http_port: 3001
+    routes:
+      - path: /
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: API_PORT
+        value: "3001"
+      - key: MONGODB
+        value: mongodb+srv://mynameisrohanandthisismyemail:<db_password>@cluster0.p6iwx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: REDIS_URI
+        value: redis://redis-18605.c278.us-east-1-4.ec2.redns.redis-cloud.com:18605
+      - key: JWT_SECRET
+        value: f4141d87f162acc1dbf663c5240a2cf300d098b6f632bdceebef2e9b6366efbbeee5211a1d3f18056b8161a0a8314fb09af905c56586c480462ac78e0a7c14d9
+      - key: MAINTENANCE_SECRET
+        value: your_secure_maintenance_secret
+
+  # WebSocket Server
+  - name: websocket
+    source_dir: /
+    github:
+      repo: your-username/67guessr
+      branch: main
+    run_command: npm run start-ws
+    environment_slug: node-js
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    http_port: 3002
+    routes:
+      - path: /ws
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: WS_PORT
+        value: "3002"
+      - key: MONGODB
+        value: mongodb+srv://mynameisrohanandthisismyemail:<db_password>@cluster0.p6iwx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: REDIS_URI
+        value: redis://redis-18605.c278.us-east-1-4.ec2.redns.redis-cloud.com:18605
+      - key: JWT_SECRET
+        value: f4141d87f162acc1dbf663c5240a2cf300d098b6f632bdceebef2e9b6366efbbeee5211a1d3f18056b8161a0a8314fb09af905c56586c480462ac78e0a7c14d9
+      - key: MAINTENANCE_SECRET
+        value: your_secure_maintenance_secret
+
+  # Cron Jobs (Optional)
+  - name: cron
+    source_dir: /
+    github:
+      repo: your-username/67guessr
+      branch: main
+    run_command: npm run start-cron
+    environment_slug: node-js
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB
+        value: mongodb+srv://mynameisrohanandthisismyemail:<db_password>@cluster0.p6iwx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: REDIS_URI
+        value: redis://redis-18605.c278.us-east-1-4.ec2.redns.redis-cloud.com:18605
+      - key: JWT_SECRET
+        value: f4141d87f162acc1dbf663c5240a2cf300d098b6f632bdceebef2e9b6366efbbeee5211a1d3f18056b8161a0a8314fb09af905c56586c480462ac78e0a7c14d9
