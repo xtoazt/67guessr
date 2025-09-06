@@ -1,3 +1,7 @@
+// Import modern design system
+@import './modern.scss';
+
+// Legacy variables for backward compatibility
 :root {
     --r: 20;
     --g: 65;
