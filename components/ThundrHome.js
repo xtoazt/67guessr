@@ -20,6 +20,20 @@ export default function ThundrHome() {
     }
   };
 
+  const handleSoloGame = () => {
+    // Navigate to the actual game page
+    if (typeof window !== 'undefined') {
+      window.location.href = '/en';
+    }
+  };
+
+  const handleMultiplayer = () => {
+    // Navigate to multiplayer mode
+    if (typeof window !== 'undefined') {
+      window.location.href = '/en?mode=multiplayer';
+    }
+  };
+
   return (
     <div className="thundr-home">
       {/* Navigation */}
@@ -116,7 +130,7 @@ export default function ThundrHome() {
             >
               <motion.button
                 className="btn-primary"
-                onClick={() => handleNavigation('/en')}
+                onClick={handleSoloGame}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -126,7 +140,7 @@ export default function ThundrHome() {
 
               <motion.button
                 className="btn-secondary"
-                onClick={() => handleNavigation('/en?mode=multiplayer')}
+                onClick={handleMultiplayer}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
