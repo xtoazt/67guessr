@@ -1,5 +1,6 @@
 import "@/styles/minimal.scss";
 import "@/styles/modern.scss";
+import "@/styles/thundr.scss";
 
 import { useEffect } from "react";
 

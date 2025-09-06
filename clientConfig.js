@@ -6,7 +6,7 @@ export default function config() {
 
   // For Vercel deployment, use environment variables or fallback to WorldGuessr servers
   let apiUrl = process.env.NEXT_PUBLIC_API_URL || "api.worldguessr.com";
-  let wsHost = process.env.NEXT_PUBLIC_WS_HOST || process.env.NEXT_PUBLIC_API_URL || "server.worldguessr.com";
+  let wsHost = process.env.NEXT_PUBLIC_WS_HOST || "server.worldguessr.com";
 
   // Clean up URLs - remove protocol if already included
   if (apiUrl.startsWith('http://') || apiUrl.startsWith('https://')) {

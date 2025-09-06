@@ -1,5 +1,6 @@
-import Home from "@/components/home";
+import ThundrHome from "@/components/ThundrHome";
+import '@/styles/thundr.scss';
 
 export default function IndexPage() {
-  return <Home />;
+  return <ThundrHome />;
 }
