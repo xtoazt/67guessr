@@ -7,6 +7,7 @@ import { FaPlay, FaUsers, FaMap, FaTrophy, FaUser, FaSignOutAlt, FaGlobe } from 
 export default function ThundrHome() {
   const { data: session } = useSession();
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('play');
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -14,21 +15,18 @@ export default function ThundrHome() {
   }, []);
 
   const handleNavigation = (path) => {
-    // Use proper navigation
     if (typeof window !== 'undefined') {
       window.location.href = path;
     }
   };
 
   const handleSoloGame = () => {
-    // Navigate to the actual game page
     if (typeof window !== 'undefined') {
       window.location.href = '/en';
     }
   };
 
   const handleMultiplayer = () => {
-    // Navigate to multiplayer mode
     if (typeof window !== 'undefined') {
       window.location.href = '/en?mode=multiplayer';
     }
@@ -97,101 +95,130 @@ export default function ThundrHome() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.3 }}
       >
-        <motion.section
-          className="thundr-hero"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <div className="hero-content">
-            <motion.h1
-              className="hero-title"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+        <div className="minimal-container">
+          {/* Tabs */}
+          <div className="tabs-container">
+            <button
+              className={`tab ${activeTab === 'play' ? 'active' : ''}`}
+              onClick={() => setActiveTab('play')}
             >
-              Guess the location
-            </motion.h1>
-
-            <motion.p
-              className="hero-subtitle"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              <FaPlay />
+              Play
+            </button>
+            <button
+              className={`tab ${activeTab === 'explore' ? 'active' : ''}`}
+              onClick={() => setActiveTab('explore')}
             >
-              Drop into random street views and test your geography skills.
-            </motion.p>
-
-            <motion.div
-              className="hero-actions"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
+              <FaMap />
+              Explore
+            </button>
+            <button
+              className={`tab ${activeTab === 'stats' ? 'active' : ''}`}
+              onClick={() => setActiveTab('stats')}
             >
-              <motion.button
-                className="btn-primary"
-                onClick={handleSoloGame}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FaPlay className="btn-icon" />
-                Solo Game
-              </motion.button>
-
-              <motion.button
-                className="btn-secondary"
-                onClick={handleMultiplayer}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FaUsers className="btn-icon" />
-                Multiplayer
-              </motion.button>
-
-              <motion.button
-                className="btn-tertiary"
-                onClick={() => handleNavigation('/maps')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FaMap className="btn-icon" />
-                Community Maps
-              </motion.button>
-
-              <motion.button
-                className="btn-quaternary"
-                onClick={() => handleNavigation('/leaderboard')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FaTrophy className="btn-icon" />
-                Leaderboard
-              </motion.button>
-
-              <motion.button
-                className="btn-quinary"
-                onClick={() => handleNavigation('/learn')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FaGlobe className="btn-icon" />
-                Learn Geography
-              </motion.button>
-
-              {!session?.token?.secret && (
-                <motion.button
-                  className="btn-signup"
-                  onClick={() => setLoginModalOpen(true)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaUser className="btn-icon" />
-                  Sign In for Friends & Stats
-                </motion.button>
-              )}
-            </motion.div>
+              <FaTrophy />
+              Stats
+            </button>
           </div>
-        </motion.section>
+
+          {/* Tab Content */}
+          <div className="tab-content">
+            {activeTab === 'play' && (
+              <motion.div
+                className="play-section"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h2>Start Playing</h2>
+                <div className="game-buttons">
+                  <motion.button
+                    className="btn-primary"
+                    onClick={handleSoloGame}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaPlay />
+                    Solo Game
+                  </motion.button>
+                  <motion.button
+                    className="btn-secondary"
+                    onClick={handleMultiplayer}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaUsers />
+                    Multiplayer
+                  </motion.button>
+                </div>
+              </motion.div>
+            )}
+
+            {activeTab === 'explore' && (
+              <motion.div
+                className="explore-section"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h2>Explore</h2>
+                <div className="explore-buttons">
+                  <motion.button
+                    className="btn-tertiary"
+                    onClick={() => handleNavigation('/maps')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaMap />
+                    Community Maps
+                  </motion.button>
+                  <motion.button
+                    className="btn-quaternary"
+                    onClick={() => handleNavigation('/learn')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaGlobe />
+                    Learn Geography
+                  </motion.button>
+                </div>
+              </motion.div>
+            )}
+
+            {activeTab === 'stats' && (
+              <motion.div
+                className="stats-section"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h2>Statistics</h2>
+                <div className="stats-buttons">
+                  <motion.button
+                    className="btn-quaternary"
+                    onClick={() => handleNavigation('/leaderboard')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaTrophy />
+                    Leaderboard
+                  </motion.button>
+                  {!session?.token?.secret && (
+                    <motion.button
+                      className="btn-signup"
+                      onClick={() => setLoginModalOpen(true)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FaUser />
+                      Sign In for Stats
+                    </motion.button>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </div>
       </motion.main>
 
       {/* Login Modal */}
