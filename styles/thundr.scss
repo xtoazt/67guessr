@@ -79,84 +79,41 @@
   justify-content: center;
 }
 
-.minimal-container {
-  width: 100%;
-  max-width: 600px;
-  padding: 2rem;
-}
-
-// Tabs
-.tabs-container {
-  display: flex;
-  background: var(--bg-secondary);
-  border-radius: 12px;
-  padding: 4px;
-  margin-bottom: 2rem;
-  border: 1px solid var(--border-color);
-}
-
-.tab {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: var(--text-primary);
-    background: var(--hover-bg);
-  }
-
-  &.active {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-    box-shadow: var(--shadow);
-  }
-
-  svg {
-    font-size: 0.8rem;
-  }
-}
-
-// Tab content
-.tab-content {
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.play-section,
-.explore-section,
-.stats-section {
+.thundr-hero {
   text-align: center;
-  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
 
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin: 0 0 2rem 0;
-    color: var(--text-primary);
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
   }
-}
 
-.game-buttons,
-.explore-buttons,
-.stats-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 300px;
-  margin: 0 auto;
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 300;
+    margin: 0;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
 }
 
 // Buttons
@@ -168,11 +125,10 @@
 .btn-signin,
 .btn-signout,
 .btn-signup {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   border: 1px solid var(--border-color);
   background: var(--bg-secondary);
   color: var(--text-primary);
@@ -183,20 +139,19 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: var(--shadow);
-  width: 100%;
 
   &:hover {
     background: var(--hover-bg);
     border-color: var(--accent-color);
     box-shadow: var(--shadow-hover);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
   }
 
   &:active {
     transform: translateY(0);
   }
 
-  svg {
+  .btn-icon {
     font-size: 0.9rem;
   }
 }
@@ -294,58 +249,43 @@
     padding: 0 1rem;
   }
 
-  .minimal-container {
+  .thundr-hero {
     padding: 1rem;
-  }
 
-  .tabs-container {
-    margin-bottom: 1.5rem;
-  }
-
-  .tab {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.8rem;
-  }
-
-  .play-section,
-  .explore-section,
-  .stats-section {
-    h2 {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
+    .hero-title {
+      font-size: 2.5rem;
     }
-  }
 
-  .game-buttons,
-  .explore-buttons,
-  .stats-buttons {
-    max-width: 100%;
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-tertiary,
+    .btn-quaternary,
+    .btn-quinary,
+    .btn-signin,
+    .btn-signout,
+    .btn-signup {
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
   }
 }
 
 @media (max-width: 480px) {
+  .thundr-hero .hero-title {
+    font-size: 2rem;
+  }
+
   .thundr-nav .logo {
     font-size: 1.2rem;
-  }
-
-  .tab {
-    padding: 0.5rem;
-    font-size: 0.75rem;
-    
-    svg {
-      font-size: 0.7rem;
-    }
-  }
-
-  .btn-primary,
-  .btn-secondary,
-  .btn-tertiary,
-  .btn-quaternary,
-  .btn-quinary,
-  .btn-signin,
-  .btn-signout,
-  .btn-signup {
-    padding: 0.875rem 1rem;
-    font-size: 0.9rem;
   }
 }

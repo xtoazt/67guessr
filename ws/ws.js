@@ -84,7 +84,7 @@ let allLocations = [{"lat":59.94945834525827,"long":10.74877784715781,"country":
 
 const generateMainLocations = async () => {
   try {
-  fetch('http://localhost:3003/allCountries.json').then(async (res) => {
+  fetch('http://localhost:3000/allCountries.json').then(async (res) => {
     const data = await res.json();
     if(data.locations && Array.isArray(data.locations) && data.locations.length > 0) {
       allLocations = data.locations;
